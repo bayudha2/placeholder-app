@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@heroicons/react': ^2.0.4
   '@reduxjs/toolkit': ^1.8.5
   '@tailwindcss/line-clamp': ^0.4.0
   '@testing-library/jest-dom': ^5.16.5
@@ -32,6 +33,7 @@ specifiers:
   web-vitals: ^2.1.4
 
 dependencies:
+  '@heroicons/react': 2.0.4_react@18.2.0
   '@reduxjs/toolkit': 1.8.5_kkwg4cbsojnjnupd3btipussee
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.3.0_biqbaboplfbrettd7655fr4n2y
@@ -1629,6 +1631,14 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+
+  /@heroicons/react/2.0.4_react@18.2.0:
+    resolution: {integrity: sha512-6C3CPY0vfWSHIMH0lr2L0KUJpPnKAnxgnzsiW0hXp8k9xu95ZFX5Qx4JQqZbQ1LsaGRyFqtyAnW5VerDY2XUdA==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@humanwhocodes/config-array/0.10.4:
     resolution: {integrity: sha512-mXAIHxZT3Vcpg83opl1wGlVZ9xydbfZO3r5YfRSH6Gpp2J/PfdBP0wbDa2sO6/qRbcalpoevVyW6A/fI6LfeMw==}
