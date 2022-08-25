@@ -10,8 +10,8 @@ const UserList = () => {
 
   return (
     <div className="flex gap-4 justify-center flex-wrap mt-8">
-      {isLoading && skeleton.map((i) => <Skeleton key={i} height={200} width={400} />)}
-      {isSuccess && data.map((data, i) => <CardUser key={i} {...data} />)}
+      {isLoading && skeleton.map((_, idx) => <Skeleton key={idx} height={200} width={400} />)}
+      {isSuccess && data.map((data) => <CardUser key={data.id} {...data} />)}
       {isError && <h1 className="font-bold text-6xl">Oops something went wrong…</h1>}
     </div>
   );

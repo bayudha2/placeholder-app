@@ -7,13 +7,15 @@ const Status = () => {
   const location = useLocation();
 
   return (
-    <section className="mt-10">
-      <div className="mt-10">
-        <small className="text-gray-600">List of Post</small>
-        <h1 className="mb-4 mt-3 text-lg ">Here is list of available Post from this_user</h1>
-      </div>
-      <PostList id={location.state ? location.state : 1} />
-    </section>
+    <>
+      <section className="mt-10">
+        <div className="mt-10">
+          <small className="text-gray-600">List of Post</small>
+          <h1 className="mb-4 mt-3 text-lg ">Here is list of available Post from this_user</h1>
+        </div>
+        <PostList id={location.state ? location.state : 1} />
+      </section>
+    </>
   );
 };
 

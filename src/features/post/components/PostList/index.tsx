@@ -5,13 +5,14 @@ import { useGetPostsQuery } from '../../services/postExtend';
 import CardPost from 'src/components/cards/CardPost';
 
 const PostList = ({ id }: { id: string | number | unknown }) => {
+  console.log('id', id);
   const { isLoading, isSuccess, isError, data } = useGetPostsQuery(id);
   const skeleton = [...Array(10)];
 
   return (
     <div className="flex flex-col justify-center gap-4 overflow-hidden">
-      {isLoading && skeleton.map((i) => <Skeleton key={i} height={100} width={300} />)}
-      {isSuccess && data.map((data, idx) => <CardPost {...data} key={idx} />)}
+      {isLoading && skeleton.map((_, i) => <Skeleton key={i} height={100} width={300} />)}
+      {isSuccess && data.map((data, idx) => <CardPost {...data} key={data.id} />)}
       {isError && <h1 className="font-bold text-6xl">Oops something went wrong…</h1>}
     </div>
   );
