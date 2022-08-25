@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { UserList } from 'src/features/user';
+
 function Dashboard() {
   return (
-    <>
+    <section>
       <div className="text-9xl">Dashboard</div>
-      {process.env.REACT_APP_BASE_URL}
-    </>
+      <UserList />
+    </section>
   );
 }
 
