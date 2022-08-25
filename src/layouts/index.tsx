@@ -10,6 +10,7 @@ const Layout = () => {
       <div className="mx-[20%]">
         <Outlet />
       </div>
+      <div className="mb-10" />
     </>
   );
 };

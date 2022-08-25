@@ -13,8 +13,10 @@ const Navbar = () => {
         <div className="navbar__list">
           <ul>
             <li>
-              <NavLink to="users" className={({ isActive }) => (isActive ? 'isActive' : undefined)}>
-                Users
+              <NavLink
+                to="/status"
+                className={({ isActive }) => (isActive ? 'isActive' : undefined)}>
+                Status
               </NavLink>
             </li>
           </ul>
