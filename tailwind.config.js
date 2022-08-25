@@ -5,9 +5,12 @@ module.exports = {
   plugins: [require('@tailwindcss/line-clamp')],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
-    },
-  },
+      colors: {
+        main: '#72FFFF',
+        'main-20': '#00D7FF',
+        'main-30': '#0096FF',
+        'main-40': '#5800FF'
+      }
+    }
+  }
 };
