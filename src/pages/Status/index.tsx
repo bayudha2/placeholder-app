@@ -1,10 +1,13 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
+import Modal from 'src/components/Modal';
 import { PostList } from 'src/features/post';
+import { useAppSelector } from 'src/hooks/reduxHooks';
 
 const Status = () => {
   const location = useLocation();
+  const isModalOpen = useAppSelector((state) => state.helper.openModal);
 
   return (
     <>
@@ -15,6 +18,7 @@ const Status = () => {
         </div>
         <PostList id={location.state ? location.state : 1} />
       </section>
+      {isModalOpen && <Modal />}
     </>
   );
 };

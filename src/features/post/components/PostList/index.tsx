@@ -5,7 +5,6 @@ import { useGetPostsQuery } from '../../services/postExtend';
 import CardPost from 'src/components/cards/CardPost';
 
 const PostList = ({ id }: { id: string | number | unknown }) => {
-  console.log('id', id);
   const { isLoading, isSuccess, isError, data } = useGetPostsQuery(id);
   const skeleton = [...Array(10)];
 
