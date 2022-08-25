@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/reduxHooks';
 import { toggleModal } from 'src/helper/helperSlice';
+import { useUpdatePostMutation } from 'src/features/post';
 
 const Modal = () => {
   const titleRef = useRef<HTMLInputElement>();
@@ -9,14 +10,26 @@ const Modal = () => {
 
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.helper.data);
+  const [updatePost, { isLoading, isSuccess }] = useUpdatePostMutation();
 
   useEffect(() => {
     titleRef.current.value = data.title;
     bodyRef.current.value = data.body;
   }, []);
 
+  useEffect(() => {
+    isSuccess && handleClose();
+  }, [isSuccess]);
+
   function handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    updatePost({
+      body: bodyRef.current.value,
+      id: data.id,
+      title: titleRef.current.value,
+      userId: data.userId
+    });
   }
 
   function handleClose() {
@@ -63,11 +76,10 @@ const Modal = () => {
                 Cancel
               </button>
               <button
-                // disabled={!(isValid && dirty)}
+                disabled={isLoading}
                 type="submit"
                 className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-md disabled:pointer-events-none disabled:cursor-not-allowed">
-                {/* {loadingUpdate || loadingAdd ? 'Saving...' : data ? 'Save Changes' : 'Save User'} */}
-                Save Post
+                {isLoading ? 'Saving…' : 'Save post'}
               </button>
             </div>
           </div>

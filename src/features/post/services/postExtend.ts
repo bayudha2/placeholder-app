@@ -18,6 +18,14 @@ export const extendedPostSlice = apiSlice.injectEndpoints({
         url: `/posts?userId=${id}`
       })
     }),
+    updatePost: builder.mutation<PostyType, PostyType>({
+      invalidatesTags: (_, __, arg) => [{ id: arg.id, type: 'Post' }],
+      query: (body) => ({
+        method: 'PUT',
+        url: `/posts/${body.id}`,
+        body
+      })
+    }),
     deletePost: builder.mutation<void, number | string>({
       invalidatesTags: [{ id: 'LIST', type: 'Post' }],
       query: (id) => ({
@@ -28,4 +36,4 @@ export const extendedPostSlice = apiSlice.injectEndpoints({
   })
 });
 
-export const { useGetPostsQuery, useDeletePostMutation } = extendedPostSlice;
+export const { useGetPostsQuery, useDeletePostMutation, useUpdatePostMutation } = extendedPostSlice;
