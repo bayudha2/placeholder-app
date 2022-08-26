@@ -6,8 +6,8 @@ import type { CommentType } from 'src/features/comment';
 type ModalType = 'updatePost' | 'createPost' | 'updateComment' | 'createComment' | '';
 
 type HelperType = {
-  userChanging: boolean;
   openModal: boolean;
+  userChanging: boolean;
   data?: PostyType;
   dataComment?: CommentType;
   modalType?: ModalType;
@@ -15,16 +15,22 @@ type HelperType = {
 };
 
 const initialState: HelperType = {
-  userChanging: false,
-  openModal: false
+  openModal: false,
+  userChanging: false
 };
 
 export const helperSlice = createSlice({
   initialState,
   name: 'helper',
   reducers: {
-    toggleUserChange: (state) => {
-      state.userChanging = !state.userChanging;
+    getComment: (
+      state,
+      data: {
+        payload: { data?: PostyType };
+        type: string;
+      }
+    ) => {
+      state.forComment = data.payload.data;
     },
     toggleModal: (
       state,
@@ -39,14 +45,8 @@ export const helperSlice = createSlice({
       state.openModal = !state.openModal;
       document.querySelector('body').classList.toggle('overflow-hidden');
     },
-    getComment: (
-      state,
-      data: {
-        payload: { data?: PostyType };
-        type: string;
-      }
-    ) => {
-      state.forComment = data.payload.data;
+    toggleUserChange: (state) => {
+      state.userChanging = !state.userChanging;
     }
   }
 });
