@@ -19,7 +19,7 @@ const Toaster: React.FC = () => {
     <ToastContainer
       theme="colored"
       hideProgressBar={true}
-      autoClose={2000}
+      autoClose={1000}
       closeButton={CloseButton}
       bodyClassName={() => 'text-sm flex font-white font-med block p-3'}
       toastClassName={(toast) =>
