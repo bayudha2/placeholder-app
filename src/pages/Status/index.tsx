@@ -6,7 +6,7 @@ import Modal from 'src/components/Modal';
 import { PostList } from 'src/features/post';
 import { CommentList } from 'src/features/comment';
 import { useGetUserQuery, useGetUsersQuery } from 'src/features/user';
-import { toggleModal } from 'src/helper/helperSlice';
+import { toggleModal, toggleUserChange } from 'src/helper/helperSlice';
 import { useAppDispatch, useAppSelector } from 'src/hooks/reduxHooks';
 
 const Status = () => {
@@ -18,7 +18,6 @@ const Status = () => {
 
   useEffect(() => {
     setUserId(state?.id ? state.id : 1);
-    console.log('userId', userId);
   }, []);
 
   const dispatch = useAppDispatch();
@@ -33,6 +32,7 @@ const Status = () => {
 
   function handleUserChange() {
     setUserId(userRef.current.value);
+    dispatch(toggleUserChange());
   }
 
   return (

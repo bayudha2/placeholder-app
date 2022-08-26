@@ -5,14 +5,15 @@ import type { PostyType } from 'src/features/post';
 type ModalType = 'updatePost' | 'createPost' | 'updateComment' | 'createComment' | '';
 
 type HelperType = {
-  isLoading: boolean;
+  userChanging: boolean;
   openModal: boolean;
   data?: PostyType;
   modalType?: ModalType;
+  forComment?: Partial<PostyType>;
 };
 
 const initialState: HelperType = {
-  isLoading: false,
+  userChanging: false,
   openModal: false
 };
 
@@ -20,8 +21,8 @@ export const helperSlice = createSlice({
   initialState,
   name: 'helper',
   reducers: {
-    toggleLoading: (state) => {
-      state.isLoading = !state.isLoading;
+    toggleUserChange: (state) => {
+      state.userChanging = !state.userChanging;
     },
     toggleModal: (
       state,
@@ -34,10 +35,19 @@ export const helperSlice = createSlice({
       state.modalType = data.payload.type;
       state.openModal = !state.openModal;
       document.querySelector('body').classList.toggle('overflow-hidden');
+    },
+    getComment: (
+      state,
+      data: {
+        payload: { data?: PostyType };
+        type: string;
+      }
+    ) => {
+      state.forComment = data.payload.data;
     }
   }
 });
 
-export const { toggleLoading, toggleModal } = helperSlice.actions;
+export const { toggleUserChange, toggleModal, getComment } = helperSlice.actions;
 
 export default helperSlice.reducer;
