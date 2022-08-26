@@ -27,7 +27,14 @@ const Status = () => {
   const { isSuccess, data } = useGetUserQuery(userId);
 
   function handleOpenModal(): void {
-    dispatch(toggleModal({ data: {}, type: 'createPost' }));
+    dispatch(
+      toggleModal({
+        data: {
+          userId: userId
+        },
+        type: 'createPost'
+      })
+    );
   }
 
   function handleUserChange() {
