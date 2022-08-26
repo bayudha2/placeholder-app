@@ -4,6 +4,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 import Modal from 'src/components/Modal';
 import { PostList } from 'src/features/post';
+import { CommentList } from 'src/features/comment';
 import { useGetUserQuery, useGetUsersQuery } from 'src/features/user';
 import { toggleModal } from 'src/helper/helperSlice';
 import { useAppDispatch, useAppSelector } from 'src/hooks/reduxHooks';
@@ -71,7 +72,10 @@ const Status = () => {
           className="py-1 text-sm text-cyan-50 mb-4 px-2 rounded-md bg-main-30">
           Create post
         </button>
-        <PostList id={userId} />
+        <div className="flex gap-8">
+          <PostList id={userId} />
+          <CommentList />
+        </div>
       </section>
       {isModalOpen && <Modal />}
     </>

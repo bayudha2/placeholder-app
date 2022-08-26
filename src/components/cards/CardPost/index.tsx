@@ -27,7 +27,7 @@ const CardPost = ({ body, id, title, userId }: PostyType) => {
   return (
     <div className="min-h-[100px] w-[300px] border border-solid border-gray-200 hover:shadow-md transition-all ease-in-out duration-300 rounded-md p-4">
       <h2 className="text-base leading-4 font-semibold text-gray-800">{title}</h2>
-      <p className="text-xs mt-2">{body}</p>
+      <p className="text-xs mt-2 line-clamp-3">{body}</p>
       <div className="mt-4 flex items-center gap-4">
         <button
           onClick={handleOpenModal}
