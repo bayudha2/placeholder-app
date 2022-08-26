@@ -5,6 +5,7 @@ import {
   useAddPostMutation
 } from './services/postExtend';
 
+import FormPost from './components/FormPost';
 import PostList from './components/PostList';
 
 import type { PostyType } from './services/types';
@@ -14,7 +15,8 @@ export {
   useDeletePostMutation,
   PostList,
   useUpdatePostMutation,
-  useAddPostMutation
+  useAddPostMutation,
+  FormPost
 };
 
 export type { PostyType };

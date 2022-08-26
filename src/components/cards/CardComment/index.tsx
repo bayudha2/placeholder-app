@@ -2,6 +2,8 @@ import React from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 
 import type { CommentType } from 'src/features/comment';
+import { useAppDispatch } from 'src/hooks/reduxHooks';
+import { toggleModal } from 'src/helper/helperSlice';
 
 type CardType = {
   dataComment: CommentType;
@@ -10,6 +12,23 @@ type CardType = {
 };
 
 const CardComment = ({ dataComment, deleteComment, isLoading }: CardType) => {
+  const dispatch = useAppDispatch();
+
+  function handleOpenModal(): void {
+    dispatch(
+      toggleModal({
+        dataComment: {
+          body: dataComment.body,
+          email: dataComment.email,
+          id: dataComment.id,
+          name: dataComment.name,
+          postId: dataComment.postId
+        },
+        type: 'updateComment'
+      })
+    );
+  }
+
   function handleDeleteComment() {
     deleteComment(dataComment.id);
   }
@@ -19,7 +38,9 @@ const CardComment = ({ dataComment, deleteComment, isLoading }: CardType) => {
       <small className="text-gray-500 text-xs">{dataComment.email}</small>
       <p className="text-xs mt-2 line-clamp-3">{dataComment.body}</p>
       <div className="mt-4 flex items-center gap-4">
-        <button onClick={() => ''} className="flex items-center rounded-md bg-yellow-400 px-2 py-1">
+        <button
+          onClick={handleOpenModal}
+          className="flex items-center rounded-md bg-yellow-400 px-2 py-1">
           <PencilIcon className="h-4 w-4 icon-right text-white" />{' '}
         </button>
         <button
