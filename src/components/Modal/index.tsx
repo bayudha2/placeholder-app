@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/hooks/reduxHooks';
 import { toggleModal } from 'src/helper/helperSlice';
 import { useUpdatePostMutation } from 'src/features/post';
+import showToast from 'src/utils/useToast';
 
 const Modal = () => {
   const titleRef = useRef<HTMLInputElement>();
@@ -10,26 +11,29 @@ const Modal = () => {
 
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.helper.data);
-  const [updatePost, { isLoading, isSuccess }] = useUpdatePostMutation();
+  const [updatePost, { isLoading }] = useUpdatePostMutation();
 
   useEffect(() => {
     titleRef.current.value = data.title;
     bodyRef.current.value = data.body;
   }, []);
 
-  useEffect(() => {
-    isSuccess && handleClose();
-  }, [isSuccess]);
-
-  function handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    updatePost({
-      body: bodyRef.current.value,
-      id: data.id,
-      title: titleRef.current.value,
-      userId: data.userId
-    });
+    try {
+      await updatePost({
+        body: bodyRef.current.value,
+        id: data.id,
+        title: titleRef.current.value,
+        userId: data.userId
+      });
+
+      showToast('Success update post!', 'success');
+      handleClose();
+    } catch (err) {
+      showToast('Woops something went wrong', 'error');
+    }
   }
 
   function handleClose() {

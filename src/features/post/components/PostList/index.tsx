@@ -11,7 +11,7 @@ const PostList = ({ id }: { id: string | number | unknown }) => {
   return (
     <div className="flex flex-col justify-center gap-4 overflow-hidden">
       {isLoading && skeleton.map((_, i) => <Skeleton key={i} height={100} width={300} />)}
-      {isSuccess && data.map((data, idx) => <CardPost {...data} key={data.id} />)}
+      {isSuccess && data.map((data) => <CardPost {...data} key={data.id} />)}
       {isError && <h1 className="font-bold text-6xl">Oops something went wrong…</h1>}
     </div>
   );
