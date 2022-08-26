@@ -6,12 +6,14 @@ import Modal from 'src/components/Modal';
 import { PostList } from 'src/features/post';
 import { CommentList } from 'src/features/comment';
 import { useGetUserQuery, useGetUsersQuery } from 'src/features/user';
-import { toggleModal, toggleUserChange } from 'src/helper/helperSlice';
+import { getComment, toggleModal, toggleUserChange } from 'src/helper/helperSlice';
 import { useAppDispatch, useAppSelector } from 'src/hooks/reduxHooks';
 
 const Status = () => {
   const location = useLocation();
   const state = location.state as { id: string };
+
+  const isComment = useAppSelector((state) => state.helper.forComment);
 
   const userRef = useRef<HTMLSelectElement>();
   const [userId, setUserId] = useState<number | string>(state?.id ? state.id : 1);
@@ -26,6 +28,7 @@ const Status = () => {
   const { data: usersData, isLoading, isError } = useGetUsersQuery();
   const { isSuccess, data } = useGetUserQuery(userId);
 
+  // Modal for Post
   function handleOpenModal(): void {
     dispatch(
       toggleModal({
@@ -37,9 +40,22 @@ const Status = () => {
     );
   }
 
+  // Modal for Comment
+  function handleOpenModalComment(): void {
+    dispatch(
+      toggleModal({
+        dataComment: {
+          postId: isComment.id
+        },
+        type: 'createComment'
+      })
+    );
+  }
+
   function handleUserChange() {
     setUserId(userRef.current.value);
     dispatch(toggleUserChange());
+    dispatch(getComment({}));
   }
 
   return (
@@ -73,12 +89,21 @@ const Status = () => {
             Here is list of available Post from {isSuccess ? data.name : 'User'}
           </h1>
         </div>
-        <button
-          onClick={handleOpenModal}
-          type="button"
-          className="py-1 text-sm text-cyan-50 mb-4 px-2 rounded-md bg-main-30">
-          Create post
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleOpenModal}
+            type="button"
+            className="py-1 text-sm text-cyan-50 mb-4 px-2 rounded-md bg-main-30">
+            Create post
+          </button>
+          <button
+            onClick={handleOpenModalComment}
+            disabled={!isComment?.id}
+            type="button"
+            className="py-1 text-sm text-cyan-50 disabled:bg-gray-300 mb-4 px-2 rounded-md bg-main-40">
+            Create comment
+          </button>
+        </div>
         <div className="flex gap-8">
           <PostList id={userId} />
           <CommentList />

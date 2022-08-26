@@ -16,8 +16,10 @@ const Modal = () => {
         <div className="flex items-center p-4">
           <h1 className="px-4 text-2xl font-bold">{modalType} Post</h1>
         </div>
-        {modalType === 'createPost' || (modalType === 'updatePost' && <FormPost />)}
-        {modalType === 'createComment' || (modalType === 'updateComment' && <FormComment />)}
+        {(modalType === 'createPost' && <FormPost />) ||
+          (modalType === 'updatePost' && <FormPost />)}
+        {(modalType === 'createComment' && <FormComment />) ||
+          (modalType === 'updateComment' && <FormComment />)}
       </div>
     </div>
   );
