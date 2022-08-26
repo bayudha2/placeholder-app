@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 
 import { useDeletePostMutation } from 'src/features/post';
@@ -9,20 +9,19 @@ import showToast from 'src/utils/useToast';
 import type { PostyType } from 'src/features/post';
 
 const CardPost = ({ body, id, title, userId }: PostyType) => {
-  const [deletePost, { isLoading }] = useDeletePostMutation();
+  const [deletePost, { isLoading, isSuccess }] = useDeletePostMutation();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    isSuccess && showToast('Success delete post!', 'success');
+  }, [isSuccess]);
 
   function handleOpenModal(): void {
     dispatch(toggleModal({ data: { body, id, title, userId }, type: 'updatePost' }));
   }
 
-  async function handleDeletePost(): Promise<void> {
-    try {
-      await deletePost(id);
-      showToast('Success delete post!', 'success');
-    } catch (er) {
-      showToast('Woops something went wrong', 'error');
-    }
+  function handleDeletePost(): void {
+    deletePost(id);
   }
 
   return (

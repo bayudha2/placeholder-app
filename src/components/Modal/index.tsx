@@ -11,8 +11,8 @@ const Modal = () => {
 
   const dispatch = useAppDispatch();
   const { data, modalType } = useAppSelector((state) => state.helper);
-  const [updatePost, { isLoading }] = useUpdatePostMutation();
-  const [createPost, { isLoading: addLoading }] = useAddPostMutation();
+  const [updatePost, { isLoading, isSuccess }] = useUpdatePostMutation();
+  const [createPost, { isLoading: addLoading, isSuccess: addSuccess }] = useAddPostMutation();
 
   useEffect(() => {
     titleRef.current.value = data.title ?? '';
@@ -22,10 +22,12 @@ const Modal = () => {
   const modalAction = {
     createPost: {
       label: 'Add post',
+      message: 'Success create post!',
       mutation: createPost
     },
     updatePost: {
       label: 'Edit post',
+      message: 'Success update post!',
       mutation: updatePost
     }
   };
@@ -42,15 +44,14 @@ const Modal = () => {
 
     modalType === 'createPost' && delete payloadData.id;
 
-    try {
-      await modalAction[modalType].mutation(payloadData);
+    await modalAction[modalType].mutation(payloadData);
 
-      showToast('Success update post!', 'success');
-      handleClose();
-    } catch (err) {
-      showToast('Woops something went wrong', 'error');
-    }
+    handleClose();
   }
+
+  useEffect(() => {
+    if (isSuccess || addSuccess) showToast(modalAction[modalType].message, 'success');
+  }, [isSuccess, addSuccess]);
 
   function handleClose() {
     dispatch(toggleModal({}));
