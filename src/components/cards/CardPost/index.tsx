@@ -13,7 +13,7 @@ const CardPost = ({ body, id, title, userId }: PostyType) => {
   const dispatch = useAppDispatch();
 
   function handleOpenModal(): void {
-    dispatch(toggleModal({ body, id, title, userId }));
+    dispatch(toggleModal({ data: { body, id, title, userId }, type: 'updatePost' }));
   }
 
   async function handleDeletePost(): Promise<void> {

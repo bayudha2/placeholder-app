@@ -4,6 +4,14 @@ import type { PostyType } from './types';
 
 export const extendedPostSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    addPost: builder.mutation<PostyType, Partial<PostyType>>({
+      invalidatesTags: [{ id: 'LIST', type: 'Post' }],
+      query: (body) => ({
+        body,
+        method: 'POST',
+        url: '/posts'
+      })
+    }),
     deletePost: builder.mutation<void, number | string>({
       invalidatesTags: [{ id: 'LIST', type: 'Post' }],
       query: (id) => ({
@@ -36,4 +44,9 @@ export const extendedPostSlice = apiSlice.injectEndpoints({
   })
 });
 
-export const { useGetPostsQuery, useDeletePostMutation, useUpdatePostMutation } = extendedPostSlice;
+export const {
+  useGetPostsQuery,
+  useDeletePostMutation,
+  useUpdatePostMutation,
+  useAddPostMutation
+} = extendedPostSlice;

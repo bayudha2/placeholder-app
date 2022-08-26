@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/reduxHooks';
 import { toggleModal } from 'src/helper/helperSlice';
-import { useUpdatePostMutation } from 'src/features/post';
+import { useAddPostMutation, useUpdatePostMutation } from 'src/features/post';
 import showToast from 'src/utils/useToast';
 
 const Modal = () => {
@@ -10,24 +10,40 @@ const Modal = () => {
   const bodyRef = useRef<HTMLInputElement>();
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.helper.data);
+  const { data, modalType } = useAppSelector((state) => state.helper);
   const [updatePost, { isLoading }] = useUpdatePostMutation();
+  const [createPost, { isLoading: addLoading }] = useAddPostMutation();
 
   useEffect(() => {
-    titleRef.current.value = data.title;
-    bodyRef.current.value = data.body;
+    titleRef.current.value = data.title ?? '';
+    bodyRef.current.value = data.body ?? '';
   }, []);
+
+  const modalAction = {
+    createPost: {
+      label: 'Add post',
+      mutation: createPost
+    },
+    updatePost: {
+      label: 'Edit post',
+      mutation: updatePost
+    }
+  };
 
   async function handleSubmit(event: React.MouseEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    const payloadData = {
+      body: bodyRef.current.value,
+      id: data.id,
+      title: titleRef.current.value,
+      userId: data.userId
+    };
+
+    modalType === 'createPost' && delete payloadData.id;
+
     try {
-      await updatePost({
-        body: bodyRef.current.value,
-        id: data.id,
-        title: titleRef.current.value,
-        userId: data.userId
-      });
+      await modalAction[modalType].mutation(payloadData);
 
       showToast('Success update post!', 'success');
       handleClose();
@@ -45,7 +61,7 @@ const Modal = () => {
       style={{ background: 'rgba(0, 0, 0, 0.7)' }}>
       <div className="absolute top-1/2 left-1/2 z-20 h-auto w-[34%] -translate-x-1/2 -translate-y-1/2 transform rounded-lg bg-white">
         <div className="flex items-center p-4">
-          <h1 className="px-4 text-2xl font-bold">Edit Post</h1>
+          <h1 className="px-4 text-2xl font-bold">{modalType} Post</h1>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="mt-4 flex items-center gap-4 px-8">
@@ -80,10 +96,10 @@ const Modal = () => {
                 Cancel
               </button>
               <button
-                disabled={isLoading}
+                disabled={isLoading || addLoading}
                 type="submit"
                 className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-md disabled:pointer-events-none disabled:cursor-not-allowed">
-                {isLoading ? 'Saving…' : 'Save post'}
+                {isLoading || addLoading ? 'Saving…' : 'Save post'}
               </button>
             </div>
           </div>
