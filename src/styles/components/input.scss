@@ -1,0 +1,7 @@
+.select-user-input {
+  @apply p-4 rounded-lg w-full appearance-none;
+
+  &::-ms-expand {
+    display: none;
+  }
+}
