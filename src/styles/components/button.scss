@@ -1,0 +1,17 @@
+.btn-user-card {
+  @apply flex items-center gap-2;
+
+  p {
+    @apply text-sm text-gray-600;
+  }
+
+  .icon-right {
+    @apply transition-all ease-in-out duration-300;
+  }
+
+  &:hover {
+    .icon-right {
+      transform: translateX(6px);
+    }
+  }
+}
