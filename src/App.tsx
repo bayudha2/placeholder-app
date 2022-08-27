@@ -5,6 +5,8 @@ import Layout from './layouts';
 
 import Dashboard from './pages/Dashboard';
 import Status from './pages/Status';
+import NotFound from './pages/NotFound';
+
 import Toaster from './components/Toaster';
 
 import 'src/styles/app.scss';
@@ -21,6 +23,7 @@ const App: React.FC = () => {
               <Route index element={<Dashboard />} />
               <Route path="/status" element={<Status />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </div>

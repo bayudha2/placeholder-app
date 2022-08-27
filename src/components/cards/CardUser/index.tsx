@@ -37,12 +37,6 @@ const CardUser = ({ address, company, phone, website, email, name, username, id 
             <ChevronRightIcon className="h-4 w-4 icon-right text-gray-800" />
           </button>
         </Link>
-        {/* <div className="flex-1 flex justify-center items-center py-4">
-          <button className="btn-user-card">
-            <p>See detail</p>
-            <ChevronRightIcon className="h-4 w-4 icon-right text-gray-800" />
-          </button>
-        </div> */}
       </div>
     </div>
   );

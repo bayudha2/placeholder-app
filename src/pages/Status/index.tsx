@@ -89,25 +89,28 @@ const Status = () => {
             Here is list of available Post from {isSuccess ? data.name : 'User'}
           </h1>
         </div>
-        <div className="flex items-center gap-4">
-          <button
-            onClick={handleOpenModal}
-            type="button"
-            className="py-1 text-sm text-cyan-50 mb-4 px-2 rounded-md bg-main-30">
-            Create post
-          </button>
-          <button
-            onClick={handleOpenModalComment}
-            disabled={!isComment?.id}
-            type="button"
-            className="py-1 text-sm text-cyan-50 disabled:bg-gray-300 mb-4 px-2 rounded-md bg-main-40">
-            Create comment
-          </button>
+        <div className="hidden md:block">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handleOpenModal}
+              type="button"
+              className="py-1 text-sm text-cyan-50 mb-4 px-2 rounded-md bg-main-30">
+              Create post
+            </button>
+            <button
+              onClick={handleOpenModalComment}
+              disabled={!isComment?.id}
+              type="button"
+              className="py-1 text-sm text-cyan-50 disabled:bg-gray-300 mb-4 px-2 rounded-md bg-main-40">
+              Create comment
+            </button>
+          </div>
+          <div className="flex gap-8">
+            <PostList id={userId} />
+            <CommentList />
+          </div>
         </div>
-        <div className="flex gap-8">
-          <PostList id={userId} />
-          <CommentList />
-        </div>
+        <h2 className="text-center font-bold text-lg md:hidden">Please open in dekstop mode</h2>
       </section>
       {isModalOpen && <Modal />}
     </>
