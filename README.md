@@ -29,7 +29,7 @@ Tech Used:
 - pnpm install
 
 # start the application
-pnpm run dev
+pnpm run start
 
 # make a production build
 pnpm run build
